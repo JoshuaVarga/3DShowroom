@@ -1,43 +1,64 @@
-let scene, camera, renderer, controls;
+let scene, camera, renderer, controls, values, model
 
 function init() {
-    camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
-    camera.position.z = 50;
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color( 'grey' );
+
+    camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 100000 );
+    camera.position.set(300, 0, 0);
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.toneMapping = THREE.ReinhardToneMapping;
+    renderer.toneMappingExposure = 2;
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.BasicShadowMap;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
    
     document.body.appendChild( renderer.domElement );
 
     controls = new THREE.TrackballControls( camera, renderer.domElement);
+    controls.rotateSpeed = 2;
+    //controls.noPan = true;
+    //controls.noZoom = true;
 
-    scene = new THREE.Scene();
-    scene.background = new THREE.Color( 0xdddddd );
+    new THREE.GLTFLoader().load('models/girl.glb', result => {
+        model = result.scene.children[0];
+        model.position.set(0, -100, 0);
+        model.traverse(n => {
+            if(n.isMesh) {
+                n.castShadow = true;
+                n.receiveShadow = true;
+                if(n.material.map) n.material.map.anisotropy = 16; 
+            }
+        });
+        scene.add(model);
+    });
 
-    var loader = new THREE.GLTFLoader();
-    loader.load('models/scene.glb', load);
-
-    const material = new THREE.ShadowMaterial();
-    material.opacity = 0.2;
-    const plane = new THREE.Mesh(new THREE.PlaneGeometry( 100, 100, 100 ), material);
-    plane.receiveShadow = true;
-    scene.add(plane);
-    plane.position.set(0, 0, -5);
-
-    const light = new THREE.PointLight( 0xffffff, 0.8, 18 );
-    light.position.set( -5, 5, 10 );
-    light.castShadow = true;
-    scene.add( light );
+    const lightTop = new THREE.PointLight( 0xfff4f2, 1, 1000 );
+    lightTop.castShadow = true;
+    lightTop.shadow.bias = -0.001;
+    lightTop.shadow.mapSize.width = 4096;
+    lightTop.shadow.mapSize.height = 4096;
+    lightTop.position.set( 500, 0, 0 );
+    scene.add( lightTop );
 
     const ambientLight = new THREE.AmbientLight( 0xffffff, 0.2 );
     scene.add( ambientLight );
-    }
+
+    values = new function () {
+        this.rotate = Math.PI / 2;
+	}
+
+    const gui = new dat.GUI();
+    gui.add(values, 'rotate', 0, Math.PI * 2);
+
+    window.addEventListener('resize', onWindowResize, false);
+}
 
 function animate() {
     requestAnimationFrame( animate );
     controls.update();
+    model.rotation.z = values.rotate;
     renderer.render( scene, camera );
 }
 
@@ -46,13 +67,6 @@ function onWindowResize() {
     camera.updateProjectionMatrix();
     renderer.setSize( window.innerWidth, window.innerHeight );
 }
-
-function load(gltf) {
-    mesh = gltf.scene.children[0];
-    scene.add(mesh);
-}
-
-window.addEventListener('resize', onWindowResize, false);
 
 init();
 animate();
