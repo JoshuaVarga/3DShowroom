@@ -16,8 +16,8 @@ function init() {
     scene = new THREE.Scene();
     scene.background = new THREE.Color( 0xdddddd );
 
-    var loader = new THREE.GLTFLoader()
-    loader.load('model/scene.glb', load);
+    var loader = new THREE.GLTFLoader();
+    loader.load('models/scene.glb', load);
 
     const material = new THREE.ShadowMaterial();
     material.opacity = 0.2;
@@ -48,7 +48,7 @@ function onWindowResize() {
 }
 
 function load(gltf) {
-    mesh = gltf.scence.children[0];
+    mesh = gltf.scene.children[0];
     scene.add(mesh);
 }
 
