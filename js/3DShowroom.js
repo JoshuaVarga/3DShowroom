@@ -17,7 +17,7 @@ function init() {
     scene.background = new THREE.Color( 0xdddddd );
 
     var loader = new THREE.GLTFLoader()
-    loader.load('model/scene.gltf', load);
+    loader.load('model/scene.glb', load);
 
     const material = new THREE.ShadowMaterial();
     material.opacity = 0.2;
