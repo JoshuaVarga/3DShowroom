@@ -1,11 +1,3 @@
-Model Information:
-* title:	Spider Tank
-* source:	https://sketchfab.com/3d-models/spider-tank-b93b464687284e07844cbde26796cb3b
-* author:	KJLOYH (https://sketchfab.com/KJLOYH)
-
-Model License:
-* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
-* requirements:	Author must be credited. Commercial use is allowed.
-
-If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
-This work is based on "Spider Tank" (https://sketchfab.com/3d-models/spider-tank-b93b464687284e07844cbde26796cb3b) by KJLOYH (https://sketchfab.com/KJLOYH) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+"Cat Statue" by Warkarma is licensed under Creative Commons Attribution. https://skfb.ly/698UZ To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.
+"Anatomy In Action - Study #01" by Raul Castillo is licensed under Creative Commons Attribution-NonCommercial. https://skfb.ly/NvoA To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/4.0/.
+"Winter at home - Holiday2020Challenge" by Warkarma is licensed under Creative Commons Attribution. https://skfb.ly/6WNLQ To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.
